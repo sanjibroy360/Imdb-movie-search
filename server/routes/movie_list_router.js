@@ -3,8 +3,7 @@ let router = express.Router();
 let fs = require("fs");
 let cheerio = require("cheerio");
 let axios = require("axios");
-const { response } = require("express");
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require("uuid");
 
 router.get("/", async (req, res) => {
   try {
@@ -27,7 +26,9 @@ router.get("/", async (req, res) => {
             .find(".lister-item h3.lister-item-header a")
             .text()
             .trim();
-          let movieImage = $(this).find(".lister-item-image a img").attr("src");
+          let movieImage = $(this)
+            .find(".lister-item-image a .loadlate")
+            .attr("loadlate");
 
           let movieDuration = $(this)
             .find(".lister-item-content .runtime")
@@ -46,6 +47,11 @@ router.get("/", async (req, res) => {
           let movieDirector = $(this)
             .find(".lister-item-content p[class=''] a")
             .first()
+            .text()
+            .trim();
+
+          let movieReleaseYear = $(this)
+            .find(".lister-item-header > .lister-item-year.text-muted.unbold")
             .text()
             .trim();
 
@@ -85,6 +91,7 @@ router.get("/", async (req, res) => {
             movieGross,
             movieMetaScore,
             movieGenre,
+            movieReleaseYear,
           };
 
           data = {
@@ -105,64 +112,18 @@ router.get("/", async (req, res) => {
                 error.message ||
                 "Something went wrong and the data could not be saved.",
             };
-            return res.status(500).json({ data });
+            return res.status(500).json({ ...data });
           }
         }
       );
-      return res.status(200).json({ data, allGenre: [...new Set(allGenre)] });
+      return res
+        .status(200)
+        .json({ ...data, allGenre: [...new Set(allGenre)] });
     }
   } catch (error) {
     data = { movieList: [], errorMessage: error.message, allGenre: [] };
 
     return res.status(404).json({ data });
-  }
-});
-
-//
-
-router.get("/search", async (req, res) => {
-  try {
-    fs.readFile("output.json", "utf-8", (error, data) => {
-      if (error) {
-        let response = {
-          movieList: [],
-          errorMessage:
-            errorMessage.message ||
-            "Something went wrong and the data could not be filtered.",
-        };
-        return res.status(500).json({ response });
-      } else {
-        data = JSON.parse(data);
-        let { rating, name, genre } = req.query;
-
-        filteredMovieList = data.movieList.filter((movie) => {
-          if (
-            (rating && Math.floor(movie.movieRatings) == rating.trim()) ||
-            (name &&
-              movie.movieName
-                .toLowerCase()
-                .indexOf(name.trim().toLowerCase()) !== -1) || // Use indexOf instead of includes to handle characters like "" or '' or `` in the movie name.
-            (genre && movie.movieGenre.includes(genre.trim().toLowerCase()))
-          ) {
-            return movie;
-          }
-        });
-
-        return res.status(200).json({
-          movieList: filteredMovieList,
-
-          errorMessage: "",
-        });
-      }
-    });
-  } catch (error) {
-    let response = {
-      movieList: [],
-      errorMessage:
-        error.message ||
-        "Something went wrong and the data could not be filtered.",
-    };
-    return res.status(500).json({ response });
   }
 });
 
