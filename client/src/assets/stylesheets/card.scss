@@ -1,0 +1,114 @@
+.card {
+  width: 95%;
+  display: flex;
+  align-items: flex-start;
+  padding: 1.5rem 1.75rem;
+  margin: 1.5rem auto;
+  background-color: $background-light;
+  border-radius: 0.25rem;
+  cursor: pointer;
+
+  .rating {
+    color: $yellow-background;
+    font-size: 0.875rem;
+  }
+
+  .movie_img {
+    margin-right: 1rem;
+  }
+
+  .card_content {
+    flex-basis: 80%;
+    margin-top: -0.6rem;
+    .card_title {
+      font-size: 1.5rem;
+    }
+    .card_meta {
+      width: 90%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .duration,
+  .vote {
+    font-size: 0.8rem;
+  }
+
+  .duration::after,
+  .vote::after {
+    content: "|";
+    margin: 0rem 0.25rem;
+  }
+  span {
+    font-size: 0.8rem;
+    color: $font-secondary-color;
+    text-transform: capitalize;
+  }
+
+  .meta_score .vote {
+    padding: 0.25rem;
+    background-color: rgb(97, 199, 79);
+  }
+
+  .meta_score {
+    background-color: $green;
+    padding: 0.2rem 0.375rem;
+    border-radius: 0.25rem;
+    color: #fff;
+  }
+
+  .release_year {
+    font-size: 1.45rem;
+  }
+  .vote_sec {
+    justify-content: flex-start !important;
+  }
+}
+
+.card:hover {
+  border: 1px solid rgb(44, 44, 44);
+  box-shadow: inset 5px 5px 10 #000;
+}
+
+.card_list_header {
+  width: 96%;
+  margin: 0rem auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center !important;
+  margin-top: 3rem;
+  .param_input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    div {
+      select {
+        margin-left: 1rem;
+        padding: 0.375rem 0.5rem;
+        border-radius: 0.25rem;
+        background-color: rgb(41, 40, 40);
+        color: rgb(206, 204, 204);
+        text-align: center;
+        text-transform: capitalize;
+        outline: 0;
+        border: none;
+        cursor: pointer;
+      }
+    }
+  }
+  .search_param {
+    flex-basis: 65%;
+    padding-left: 1rem;
+    font-size: 1.85rem;
+    color: rgba(245, 197, 24, 0.93);
+    font-weight: bold;
+    border-left: 0.375rem solid $yellow-background;
+  }
+}
+
+.card_list {
+  margin-top: 5rem;
+}

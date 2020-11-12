@@ -1,10 +1,14 @@
-import ReactDOM from 'react-dom';
-import React from 'react';
+import ReactDOM from "react-dom";
+import React from "react";
+import App from "./App";
+import "./assets/stylesheets/index.scss";
+import { BrowserRouter } from "react-router-dom";
 
-var Hello = props => <h1>Hello {props.name}</h1>
-
-ReactDOM.render(<React.Fragment>
-    <Hello name="World!" />
-    <Hello name="World!" />
-    <Hello name="World!" />
-</React.Fragment>, document.getElementById('root'));
+ReactDOM.render(
+  <React.Fragment>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.Fragment>,
+  document.getElementById("root")
+);

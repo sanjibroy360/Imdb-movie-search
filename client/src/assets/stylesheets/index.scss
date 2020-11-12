@@ -1,0 +1,26 @@
+@import "./css_reset.scss";
+@import "./colors.scss";
+@import "./hero_sec.scss";
+@import "./header.scss";
+@import "./card.scss";
+@import "./loader.scss";
+
+html,
+body {
+  font-size: 16px;
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: $background-dark;
+  color: #fff;
+  line-height: 1.5;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
